@@ -3,13 +3,25 @@
 ===========================<br> 
 This is a image captioning project written in pytorch by team A+A+A+A+ composed of: 
 
-*Xuehai He(A53303907)<br>*
-*Yang Ni (A53295687)<br>*
-*Zhijin Liang (A53311894)<br>*
-*Xuechen Zhu(A53311894)<br>*
+***Xuehai He(A53303907)<br>***
+***Yang Ni (A53295687)<br>***
+***Zhijin Liang (A53311894)<br>***
+***Xuechen Zhu(A53311894)<br>***
 
 Our network used in this project has a structure of CNN+RNN, and it is based on the Show and Tell paper.
 For the CNN part, we tried resnet152 and resnet50. For the RNN part, we tried LSTM and GRU.
+
+## Results
+===========================<br>
+resnet152+lstm+hidden_size1024+lr_1e3: Bleu_4_C5 = 0.235378 CIDEr_C5 = 0.748013
+
+**resnet152+lstm+hidden_size512+lr_1e3: Bleu_4_C5 = 0.242659 CIDEr_C5 = 0.772517**
+
+resnet152+gru+hidden_size512+lr_1e3: Bleu_4_C5 = 0.235254 CIDEr_C5 = 0.750898
+
+resnet152+gru+hidden_size1024+lr_1e3: Bleu_4_C5 = 0.234776 CIDEr_C5 = 0.749187
+
+resnet50+lstm+hidden_size1024+lr_1e3: Bleu_4_C5 = 0.237044 CIDEr_C5 = 0.749605
 
 ## Requirements
 ===========================<br>
@@ -34,11 +46,17 @@ folder for pictures used in inference demo
 in this folder, there's a notebook for plot the validation and training loss
 ### folders for trained models and results
 - resnet152+gru+hidden_size512+lr_1e-3
+- resnet152+gru+hidden_size1024+lr_1e-3
 - resnet152+lstm+hidden_size512+lr_1e-3
 - resnet152+lstm+hidden_size512+lr_1e-2
 - resnet152+lstm+hidden_size1024+lr_1e-3
 - resnet50+lstm+hidden_size1024+lr_1e-3
-- We change the CNN, RNN, hidden size, learning rate
+	- We change the CNN (resnet152 and resnet50), RNN (LSTM and GRU), hidden size (512 and 1024), learning rate (1e-2 and 1e-3)
+	- Under each folder, there might be three folders (models, result_json and eval_score) for: 
+		- storing trained models
+		- storing results
+		- storing scores
+
 ### Result_generate_testset.ipynb
 notebook for run the trained model on whole test set
 ### Result_generate_valset.ipynb
