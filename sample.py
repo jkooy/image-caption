@@ -13,11 +13,14 @@ from PIL import Image
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 
 def load_image(image_path, transform=None):
+    '''
+    This is the function for load the testing image
+    '''
     image = Image.open(image_path)
-    image = image.resize([224, 224], Image.LANCZOS)
+    image = image.resize([224, 224], Image.LANCZOS) # we do the resize for the image
     
     if transform is not None:
-        image = transform(image).unsqueeze(0)
+        image = transform(image).unsqueeze(0) # do the transformation
     
     return image
 
@@ -26,29 +29,29 @@ def main(args):
     transform = transforms.Compose([
         transforms.ToTensor(), 
         transforms.Normalize((0.485, 0.456, 0.406), 
-                             (0.229, 0.224, 0.225))])
+                             (0.229, 0.224, 0.225))]) # normalize the image according to the ImageNet guidance
     
-    
+    # read the vocab file
     with open(args.vocab_path, 'rb') as f:
         vocab = pickle.load(f)
 
     
-    encoder = EncoderCNN(args.embed_size).eval()
-    decoder = DecoderRNN(args.embed_size, args.hidden_size, len(vocab), args.num_layers)
+    encoder = EncoderCNN(args.embed_size).eval() # setup the encoder network
+    decoder = DecoderRNN(args.embed_size, args.hidden_size, len(vocab), args.num_layers) # the decoder network
     encoder = encoder.to(device)
     decoder = decoder.to(device)
 
-    
+    # load the trained model
     encoder.load_state_dict(torch.load(args.encoder_path))
     decoder.load_state_dict(torch.load(args.decoder_path))
-
-    image = load_image(args.image, transform)
+    
+    image = load_image(args.image, transform) # load the image to tensor
     image_tensor = image.to(device)
     print(image_tensor.size())
-    feature = encoder(image_tensor)
-    sampled_ids = decoder.sample(feature)
+    feature = encoder(image_tensor) # runing forward propagate through the encoder
+    sampled_ids = decoder.sample(feature) # the output CNN feature goes through the sampling of the RNN network
     sampled_ids = sampled_ids[0].cpu().numpy()          
-    
+    # translate the index back to word and construct the sentence
     sampled_caption = []
     for word_id in sampled_ids:
         word = vocab.idx2word[word_id]

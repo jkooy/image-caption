@@ -13,6 +13,9 @@ For the CNN part, we tried resnet152 and resnet50. For the RNN part, we tried LS
 
 ## Results
 ===========================<br>
+- The best result is produced by the second model below
+
+
 resnet152+lstm+hidden_size1024+lr_1e3: Bleu_4_C5 = 0.235378 CIDEr_C5 = 0.748013
 
 **resnet152+lstm+hidden_size512+lr_1e3: Bleu_4_C5 = 0.242659 CIDEr_C5 = 0.772517**
@@ -23,6 +26,8 @@ resnet152+gru+hidden_size1024+lr_1e3: Bleu_4_C5 = 0.234776 CIDEr_C5 = 0.749187
 
 resnet50+lstm+hidden_size1024+lr_1e3: Bleu_4_C5 = 0.237044 CIDEr_C5 = 0.749605
 
+resnet152+lstm+hidden_size512+lr_1e-2: Bleu_4_C5 = 0.222249 CIDEr_C5 = 0.695748
+
 ## Requirements
 ===========================<br>
 - Python 3.6+
@@ -30,8 +35,9 @@ resnet50+lstm+hidden_size1024+lr_1e3: Bleu_4_C5 = 0.237044 CIDEr_C5 = 0.749605
 - Matplotlib
 - Pillow
 - Numpy
+- And some other library included in regular python
 
-- These could be installed by:
+- These could be installed on DSMLP server by:
 ```
 python -m pip install --user torch
 python -m pip install --user matplotlib
@@ -45,6 +51,9 @@ folder for pictures used in inference demo
 ### notebook_plot_loss
 in this folder, there's a notebook for plot the validation and training loss
 ### folders for trained models and results
+- Some models may not include the trained model files because the storage limit of GitHub
+- But all models has the result and the eval_score
+
 - resnet152+gru+hidden_size512+lr_1e-3
 - resnet152+gru+hidden_size1024+lr_1e-3
 - resnet152+lstm+hidden_size512+lr_1e-3

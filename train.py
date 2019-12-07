@@ -22,11 +22,12 @@ def main(args):
     
     # Image preprocessing and normalization
     transform = transforms.Compose([ 
-        transforms.Resize((240, 240)),
+        transforms.Resize((240, 240)), # crop the image to be the same size
         transforms.RandomHorizontalFlip(), 
+        # we include the random flip to increase the randomness of the input
         transforms.ToTensor(), 
         transforms.Normalize((0.485, 0.456, 0.406), 
-                             (0.229, 0.224, 0.225))])
+                             (0.229, 0.224, 0.225))]) # normalize the picture according the the ImageNet guidance
     
     # Load vocabulary list
     with open(args.vocab_path, 'rb') as f:
@@ -73,9 +74,9 @@ def main(args):
             decoder.zero_grad()
             encoder.zero_grad()
             
-            features = encoder(images)
-            outputs = decoder(features, captions, lengths)
-            loss = criterion(outputs, targets)
+            features = encoder(images) # get the feature output from the CNN encoder
+            outputs = decoder(features, captions, lengths) # get the output from the decoder
+            loss = criterion(outputs, targets) # calculate the loss
             print("Training loss: {}".format(loss.item()))
             
             losses_train.append(loss.item())
@@ -97,11 +98,13 @@ def main(args):
                         
                         # forward 
                         if (val_step < 40): # only use the first 40 mini-batch to compute validation loss(to save time)
+                            # run the forward propagation to get the validation loss
                             images = images.to(device)
                             captions = captions.to(device)
                             targets = pack_padded_sequence(captions, lengths, batch_first=True)[0]
                             features = encoder(images)
                             outputs = decoder(features, captions, lengths)
+                            # calculate the validation loss
                             batch_loss_val = criterion(outputs, targets) 
                             
                             print("Val loss: {}".format(batch_loss_val.item()))
@@ -134,6 +137,8 @@ def main(args):
             if (i+1) % args.log_step == 0:   # save the loss for each mini-batch
                 utils.dump_losses(losses_train, losses_val, os.path.join(args.model_path, 'losses.pkl'))
                 
+# in this part, we defind some hyper-parameters
+# the embedding_size is 512, which is the same as paper
 
                 
 if __name__ == '__main__':
