@@ -35,6 +35,8 @@ resnet152+lstm+hidden_size512+lr_1e-2: Bleu_4_C5 = 0.222249 CIDEr_C5 = 0.695748
 - Matplotlib
 - Pillow
 - Numpy
+- NLTK
+- pycocotools
 - And some other library included in regular python
 
 - These could be installed on DSMLP server by:
@@ -42,6 +44,8 @@ resnet152+lstm+hidden_size512+lr_1e-2: Bleu_4_C5 = 0.222249 CIDEr_C5 = 0.695748
 python -m pip install --user torch
 python -m pip install --user matplotlib
 python -m pip install --user numpy
+python -m pip install --user pycocotools
+python -m pip install --user nltk
 ```
 
 ## Code organization
@@ -52,7 +56,7 @@ folder for pictures used in inference demo
 in this folder, there's a notebook for plot the validation and training loss
 ### folders for trained models and results
 - Some models may not include the trained model files because the storage limit of GitHub
-- But all models has the result and the eval_score
+- But all models has the result and the eval_score, and we have DropBox link for the model files that exceed limit
 
 - resnet152+gru+hidden_size512+lr_1e-3
 - resnet152+gru+hidden_size1024+lr_1e-3
