@@ -6,7 +6,7 @@ This is a image captioning project written in pytorch by team A+A+A+A+ composed 
 ***Xuehai He(A53303907)<br>***
 ***Yang Ni (A53295687)<br>***
 ***Zhijin Liang (A53311894)<br>***
-***Xuechen Zhu(A53311894)<br>***
+***Xuechen Zhu(A53314896)<br>***
 
 Our network used in this project has a structure of CNN+RNN, and it is based on the Show and Tell paper.
 For the CNN part, we tried resnet152 and resnet50. For the RNN part, we tried LSTM and GRU.
